@@ -47,7 +47,7 @@ def sprawdz_granice(x,y):
         y=-GRANICA
         print("Łazik dotarł do południowej granicy!")
     return x,y
-def losowe_zdarzenie(energia,historia):
+def losowe_zdarzenie(x, y, energia, historia):
     szansa=random.randint(1,3)
     if szansa==1:
         zdarzenie=random.randint(1,4)
@@ -69,15 +69,21 @@ def losowe_zdarzenie(energia,historia):
             y += random.randint(-3, 3)
     else:
         print("\nBrak zdarzeń w tym kroku.")
-    return energia
+    return x, y, energia
 def main():
     nazwa_misji, imie_pilota = pobierz_dane_misji()
 
     while True:
         print(f"\nWitaj, {imie_pilota}! Misja '{nazwa_misji}' rozpoczęta.")
 
-        x=0
-        y=0
+        try:
+            x = int(input("Podaj startowe X: "))
+        except:
+            x = 0
+        try:
+            y = int(input("Podaj startowe Y: "))
+        except:
+            y = 0
         energia=100
         krok=0
 
@@ -100,7 +106,7 @@ def main():
             print(f"Krok {krok}")
             x,y,energia=ruchy(x,y,energia)
             x,y=sprawdz_granice(x,y)
-            energia=losowe_zdarzenie(energia,historia)
+            x, y, energia = losowe_zdarzenie(x, y, energia, historia)
             if energia < 30 and energia > 0:
                 print("⚠ NISKI POZIOM ENERGII")
             if x==2 and y==2:
