@@ -50,7 +50,7 @@ def sprawdz_granice(x,y):
 def losowe_zdarzenie(energia,historia):
     szansa=random.randint(1,3)
     if szansa==1:
-        zdarzenie=random.randint(1,3)
+        zdarzenie=random.randint(1,4)
         if zdarzenie==1:
             print("\n⚠ ZDARZENIE: Burza piaskowa! Łazik traci 20 energii.")
             energia=energia-20
@@ -63,6 +63,10 @@ def losowe_zdarzenie(energia,historia):
             print("\n⚠ ZDARZENIE: Uszkodzenie koła! Łazik traci 15 energii.")
             energia=energia-15
             historia.append("Uszkodzenie koła")
+        elif zdarzenie == 4:
+            print("🌪 Anomalia grawitacyjna! Teleportacja!")
+            x += random.randint(-3, 3)
+            y += random.randint(-3, 3)
     else:
         print("\nBrak zdarzeń w tym kroku.")
     return energia
@@ -77,14 +81,15 @@ def main():
         energia=100
         krok=0
 
-        cel_x=5
-        cel_y=5
+        cel_x = random.randint(-5, 5)
+        cel_y = random.randint(-5, 5)
         maks_krokow=20
 
         historia=[]
 
         wynik=""
-
+        
+        print(f"🎯 Cel misji: ({cel_x}, {cel_y})")
         print(f"Pozycja startowa: x={x}, y={y}")
         print(f"Energia: {energia}")
         print(f"Cel: {cel_x}, {cel_y}")
